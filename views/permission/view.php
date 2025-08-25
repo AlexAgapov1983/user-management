@@ -270,13 +270,13 @@ $('#search-in-routes').on('change keyup', function(){
 
 		if ( _t.html().indexOf(input.val()) > -1 )
 		{
-			_t.closest('label').removeClass('hide');
-			_t.closest('div.separator').removeClass('hide');
+			_t.closest('label').removeClass('d-none');
+			_t.closest('div.separator').removeClass('d-none');
 		}
 		else
 		{
-			_t.closest('label').addClass('hide');
-			_t.closest('div.separator').addClass('hide');
+			_t.closest('label').addClass('d-none');
+			_t.closest('div.separator').addClass('d-none');
 		}
 	});
 });

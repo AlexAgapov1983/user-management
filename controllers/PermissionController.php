@@ -11,6 +11,7 @@ use webvimark\modules\UserManagement\models\rbacDB\search\PermissionSearch;
 use webvimark\components\AdminDefaultController;
 use webvimark\modules\UserManagement\UserManagementModule;
 use Yii;
+use yii\db\Expression;
 
 class PermissionController extends AdminDefaultController
 {
@@ -33,7 +34,11 @@ class PermissionController extends AdminDefaultController
 	{
 		$item = $this->findModel($id);
 
-		$routes = Route::find()->asArray()->all();
+    $routes = Route::find()
+      ->select(['*', new Expression("replace(replace(name, '-', ''), '/', '1') as sf")])
+      ->asArray()
+      ->orderBy('sf')
+      ->all();
 
 		$permissions = Permission::find()
 			->andWhere(['not in', Yii::$app->getModule('user-management')->auth_item_table . '.name', [Yii::$app->getModule('user-management')->commonPermissionName, $id]])
